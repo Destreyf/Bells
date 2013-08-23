@@ -45,6 +45,28 @@ else
 fi
 
 cp -R web/* $TARGET
+cp -R asterisk/* /etc/asterisk/
+
+if [ -f "/etc/asterisk/extensions_custom.conf" ]; then
+	EXTFILE="/etc/asterisk/extensions_custom.conf"
+elif [ -f "/etc/asterisk/extensions_additional.conf" ]; then
+	EXTFILE="/etc/asterisk/extensions_additional.conf"
+else
+	EXTFILE="/etc/asterisk/extensions.conf"
+fi
+EXTENSIONS=`cat "$EXTFILE"`
+
+if [[ $CRONTAB =~ "extensions_paging.conf" ]]; then
+	echo "Asterisk Include Exists"
+else
+	echo "Asterisk Include is Missing, Adding"
+	echo "#include extensions_paging.conf" > "$EXTFILE"
+	echo "Asterisk Include Added"
+	echo "Reloading Asterisk"
+	asterisk -rx 'reload'
+	echo "Asterisk Reloaded"
+fi
+
 crontab -l > existing.crontab
 CRONTASK="bells-auto.sh"
 #CRONTASK="$TARGETbells-auto.sh"
@@ -81,16 +103,22 @@ TARGETGROUP=`ls -l "$TARGET" | awk '{ print $4 }'`
 
 chown -R $TARGETOWNER:$TARGETGROUP "$TARGET$TARGET_NAME/"
 chmod +x "$TARGET$TARGET_NAME/$CRONTASK"
-
+echo "------------------------------------------"
 echo "Install Complete"
-echo "You can now login to the server by going to"
+echo "------------------------------------------"
+echo "You can now login to the server by going"
+echo "to the following url in your browser"
 
 IP=`/sbin/ifconfig | sed -n '2 p' | awk '{print $3}'`
 
 echo ""
-echo "http://$IP/$TARGET_NAME/"
 echo ""
-echo "in your browser"
-
+echo "------------------------------------------"
+echo ""
+echo "http://$IP/$TARGET_NAME/"
 echo "The Username is Admin (Case sensitive)"
 echo "The Password is $ADMIN_PASSWORD"
+
+echo ""
+echo "------------------------------------------"
+echo ""
