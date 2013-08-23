@@ -47,7 +47,7 @@ class Controller_Cron extends Controller {
 						$cmd = "/usr/sbin/asterisk -rx 'originate ".$target_zone->endpoint_data." application playback silence/6&".substr($path,0,-4)."'";
 						$response = array();
 						$status = exec($cmd,$response);
-						$this->write(array($response,$cmd,$status));
+						$this->write("Running: ".$cmd);//array($response,$cmd,$status));
 						DB::update('BellDates')->set(array('last_idBellTime'=>$custom_bells_row->idBellTime))->where('idBellDate', '=', $custom_bells_row->idBellDate)->execute();
 					}
 				} else {
