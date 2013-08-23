@@ -19,11 +19,29 @@ if [[ -z "$ADMIN_PASSWORD" ]]; then
         ADMIN_PASSWORD=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`
 fi
 
+echo "==================================="
+echo "== ClassroomSmart Bell Scheduler =="
+echo "==================================="
+echo ""
+echo "Thank you for using the installer"
+echo "If you see anything that doesn't look right"
+echo "Immediately hold CTRL and press C to quit"
+echo ""
+echo "This installer will gather the required information"
+echo "about your operating system, and packages available"
+echo "and perform an install, if you are using"
+echo "a non Ubuntu distro and are not on a PBX, please"
+echo "Install the following packages manually"
+echo "apache2 (httpd) php5 php5-mysql mysql-server mysql-client mpg123 php5-mcrypt"
+echo ""
+echo ""
 if [[ "$OS" == *Ubuntu* ]]; then
-        echo "OS: Ubuntu\n"
+        echo "OS: Ubuntu"
         #Ubuntu based System
         TARGET='/var/www/'
 
+        apt-get install mysql-server mysql-client php5-mysql asterisk asterisk-dahdi mpg123 sox -y --force-yes
+        
         read -p "Enter the MySQL Root Password, followed by [ENTER]:" MYSQL_PASSWORD
 
         #if [ ! `mysql -u $MYSQL_USER -p$MYSQL_PASSWORD  -e ";"` ]; then
@@ -36,7 +54,6 @@ if [[ "$OS" == *Ubuntu* ]]; then
         done
 
         echo "Setting up required packages."
-        apt-get install mysql-server mysql-client php5-mysql asterisk asterisk-dahdi mpg123 sox -y --force-yes
 else
         echo "OS: CentOS\n"
         #CentOS based System
