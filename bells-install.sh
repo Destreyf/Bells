@@ -11,9 +11,9 @@ TARGET_NAME='bells'
 MYSQL_USER='root'
 MYSQL_PASSWORD='passw0rd'
 BELLS_PASSWORD=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`
-ADMIN_PASSWORD=""
+ADMIN_PASSWORD="s07thv1ll3y"
 
-read -p "Enter the Admin Users Password, If left Blank a random password will be generated:" ADMIN_PASSWORD
+#read -p "Enter the Admin Users Password, If left Blank a random password will be generated:" ADMIN_PASSWORD
 
 if [[ -z "$ADMIN_PASSWORD" ]]; then
         ADMIN_PASSWORD=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`
@@ -93,9 +93,9 @@ echo "Securing MySQL Password"
 MYSQLSECURESED="sed -i 's/Yuh4D6E9G5wFxVUa/$BELLS_PASSWORD/g' $TARGET$TARGET_NAME/application/config/database.php"
 $MYSQLSECURESED
 
-echo "Setting up Admin User"
-ADMINSECURESED="sed -i 's/-setme-/$ADMIN_PASSWORD/g' $TARGET$TARGET_NAME/system/users.db"
-$ADMINSECURESED
+#echo "Setting up Admin User"
+#ADMINSECURESED="sed -i 's/-setme-/$ADMIN_PASSWORD/g' $TARGET$TARGET_NAME/system/users.db"
+#$ADMINSECURESED
 
 echo "Changing Permissions";
 TARGETOWNER=`ls -l "$TARGET" | awk '{ print $3 }'`
