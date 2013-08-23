@@ -80,6 +80,7 @@ TARGETOWNER=`ls -l "$TARGET" | awk '{ print $3 }'`
 TARGETGROUP=`ls -l "$TARGET" | awk '{ print $4 }'`
 
 chown -R $TARGETOWNER:$TARGETGROUP "$TARGET$TARGET_NAME/"
+chmod +x "$TARGET$TARGET_NAME/$CRONTASK"
 
 echo "Install Complete"
 echo "You can now login to the server by going to"
