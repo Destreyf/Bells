@@ -56,7 +56,7 @@ else
 fi
 EXTENSIONS=`cat "$EXTFILE"`
 
-if [[ $CRONTAB =~ "extensions_paging.conf" ]]; then
+if [[ $EXTENSIONS =~ "extensions_paging.conf" ]]; then
         echo "Asterisk Include Exists"
 else
         echo "Asterisk Include is Missing, Adding"
