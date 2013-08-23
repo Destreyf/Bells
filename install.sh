@@ -40,7 +40,7 @@ if [[ "$OS" == *Ubuntu* ]]; then
         #Ubuntu based System
         TARGET='/var/www/'
 
-        apt-get install mysql-server mysql-client php5-mysql asterisk asterisk-dahdi mpg123 sox -y --force-yes
+        apt-get install mysql-server mysql-client php5-mysql asterisk asterisk-dahdi mpg123 sox ntp -y --force-yes
         
         read -p "Enter the MySQL Root Password, followed by [ENTER]:" MYSQL_PASSWORD
 
