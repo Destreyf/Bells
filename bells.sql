@@ -1,3 +1,10 @@
+CREATE USER 'bells'@'localhost' IDENTIFIED BY 'Yuh4D6E9G5wFxVUa';
+CREATE DATABASE `bells`;
+GRANT ALL PRIVILEGES ON bells.* TO 'bells'@'localhost' WITH GRANT OPTION;
+
+USE `bells`;
+
+
 -- MySQL dump 10.13  Distrib 5.5.32, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: bells

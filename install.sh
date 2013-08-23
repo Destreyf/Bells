@@ -48,23 +48,23 @@ cp -R web/* $TARGET
 cp -R asterisk/* /etc/asterisk/
 
 if [ -f "/etc/asterisk/extensions_custom.conf" ]; then
-	EXTFILE="/etc/asterisk/extensions_custom.conf"
+        EXTFILE="/etc/asterisk/extensions_custom.conf"
 elif [ -f "/etc/asterisk/extensions_additional.conf" ]; then
-	EXTFILE="/etc/asterisk/extensions_additional.conf"
+        EXTFILE="/etc/asterisk/extensions_additional.conf"
 else
-	EXTFILE="/etc/asterisk/extensions.conf"
+        EXTFILE="/etc/asterisk/extensions.conf"
 fi
 EXTENSIONS=`cat "$EXTFILE"`
 
 if [[ $CRONTAB =~ "extensions_paging.conf" ]]; then
-	echo "Asterisk Include Exists"
+        echo "Asterisk Include Exists"
 else
-	echo "Asterisk Include is Missing, Adding"
-	echo "#include extensions_paging.conf" > "$EXTFILE"
-	echo "Asterisk Include Added"
-	echo "Reloading Asterisk"
-	asterisk -rx 'reload'
-	echo "Asterisk Reloaded"
+        echo "Asterisk Include is Missing, Adding"
+        echo "#include extensions_paging.conf" >> "$EXTFILE"
+        echo "Asterisk Include Added"
+        echo "Reloading Asterisk"
+        asterisk -rx 'reload'
+        echo "Asterisk Reloaded"
 fi
 
 crontab -l > existing.crontab
@@ -89,20 +89,35 @@ rm existing.crontab
 echo "Creating Database"
 mysql -u $MYSQL_USER -p$MYSQL_PASSWORD < bells.sql
 
-echo "Securing MySQL Password"
-MYSQLSECURESED="sed -i 's/Yuh4D6E9G5wFxVUa/$BELLS_PASSWORD/g' $TARGET$TARGET_NAME/application/config/database.php"
-$MYSQLSECURESED
+#echo "Securing MySQL Password"
+#MYSQLSECURESED="sed -i 's/Yuh4D6E9G5wFxVUa/$BELLS_PASSWORD/g' $TARGET$TARGET_NAME/application/config/database.php"
+#echo "Running: $MYSQLSECURESED"
+#$MYSQLSECURESED
 
 #echo "Setting up Admin User"
 #ADMINSECURESED="sed -i 's/-setme-/$ADMIN_PASSWORD/g' $TARGET$TARGET_NAME/system/users.db"
 #$ADMINSECURESED
+echo "Verifying Apache ModRewrite is enabled"
+a2enmod rewrite
+
+if [ -f /etc/init.d/apache2 ]; then
+        /etc/init.d/apache2 restart
+else
+        /etc/init.d/httpd restart
+fi
 
 echo "Changing Permissions";
-TARGETOWNER=`ls -l "$TARGET" | awk '{ print $3 }'`
-TARGETGROUP=`ls -l "$TARGET" | awk '{ print $4 }'`
+TARGETOWNER=`ls -l "$TARGET" | awk '{ print $3 }' | uniq | head -2 | xargs`
+#TARGETGROUP=`ls -l "$TARGET" | awk '{ print $4 }'`
 
-chown -R $TARGETOWNER:$TARGETGROUP "$TARGET$TARGET_NAME/"
+FIXPERM="chown -R $TARGETOWNER $TARGET$TARGET_NAME/"
+#echo "$FIXPERM"
+$FIXPERM
 chmod +x "$TARGET$TARGET_NAME/$CRONTASK"
+mkdir -p "$TARGET$TARGET_NAME/application/cache"
+chmod 777 "$TARGET$TARGET_NAME/application/cache"
+chmod 777 "$TARGET$TARGET_NAME/application"
+
 echo "------------------------------------------"
 echo "Install Complete"
 echo "------------------------------------------"
