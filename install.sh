@@ -115,8 +115,9 @@ FIXPERM="chown -R $TARGETOWNER $TARGET$TARGET_NAME/"
 $FIXPERM
 chmod +x "$TARGET$TARGET_NAME/$CRONTASK"
 mkdir -p "$TARGET$TARGET_NAME/application/cache"
+mkdir -p "$TARGET$TARGET_NAME/application/logs"
 chmod 777 "$TARGET$TARGET_NAME/application/cache"
-chmod 777 "$TARGET$TARGET_NAME/application"
+chmod 777 "$TARGET$TARGET_NAME/application/logs"
 
 echo "------------------------------------------"
 echo "Install Complete"
