@@ -36,7 +36,7 @@ if [[ "$OS" == *Ubuntu* ]]; then
         done
 
         echo "Setting up required packages."
-        #apt-get install mysql-server mysql-client php5-mysql asterisk asterisk-dahdi mpg123 sox -y --force-yes
+        apt-get install mysql-server mysql-client php5-mysql asterisk asterisk-dahdi mpg123 sox -y --force-yes
 else
         echo "OS: CentOS\n"
         #CentOS based System
@@ -109,7 +109,8 @@ echo "------------------------------------------"
 echo "You can now login to the server by going"
 echo "to the following url in your browser"
 
-IP=`/sbin/ifconfig | sed -n '2 p' | awk '{print $3}'`
+#IP=`/sbin/ifconfig | sed -n '2 p' | awk '{print $3}'`
+IP=`hostname  -I | cut -f1 -d' '`
 
 echo ""
 echo ""
@@ -121,4 +122,10 @@ echo "The Password is $ADMIN_PASSWORD"
 
 echo ""
 echo "------------------------------------------"
+echo ""
+echo "Remember to customize /etc/asterisk/extensions_paging.conf"
+echo "according to the needs of the facility"
+echo ""
+echo "Also if being installed in a non PBX enviroment, remember to"
+echo "Create the extensions users in /etc/asterisk/sip.conf"
 echo ""
