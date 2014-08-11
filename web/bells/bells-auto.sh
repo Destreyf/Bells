@@ -12,6 +12,6 @@ if [ "$proc" == "" ]; then
         echo "Attemping to restart.... " >> $EMAILMESSAGE
         # send an email using /bin/mail
         #/bin/mail -s "$SUBJECT" "$EMAIL" < $EMAILMESSAGE
-        /usr/bin/php /var/www/bells/index.php --uri="cron/bells" >> /var/log/bells.log
+        /usr/bin/php /var/www/html/bells/index.php --uri="cron/bells" >> /var/log/bells.log
 fi;
 
