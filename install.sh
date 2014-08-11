@@ -38,9 +38,9 @@ echo ""
 if [[ "$OS" == *Ubuntu* ]]; then
         echo "OS: Ubuntu"
         #Ubuntu based System
-        TARGET='/var/www/'
+        TARGET='/var/www/html/'
 
-        apt-get install mysql-server mysql-client php5-mysql asterisk asterisk-dahdi mpg123 sox ntp -y --force-yes
+        apt-get install mysql-server mysql-client php5-mysql mpg123 sox ntp phpmyadmin -y --force-yes
         
         read -p "Enter the MySQL Root Password, followed by [ENTER]:" MYSQL_PASSWORD
 
@@ -114,8 +114,13 @@ mysql -u $MYSQL_USER -p$MYSQL_PASSWORD < bells.sql
 #echo "Setting up Admin User"
 #ADMINSECURESED="sed -i 's/-setme-/$ADMIN_PASSWORD/g' $TARGET$TARGET_NAME/system/users.db"
 #$ADMINSECURESED
+
 echo "Verifying Apache ModRewrite is enabled"
 a2enmod rewrite
+
+echo "Setting up PHP Short Tag support"
+cp /etc/php5/apache2/php.ini /etc/php5/apache2/php.ini.bells_backup
+sed -i 's/short_open_tag = Off/short_open_tag = On/' /etc/php5/apace2/php.ini
 
 if [ -f /etc/init.d/apache2 ]; then
         /etc/init.d/apache2 restart
