@@ -22,7 +22,7 @@ else
  * @see  http://kohanaframework.org/guide/using.configuration
  * @see  http://php.net/timezones
  */
-date_default_timezone_set('America/Phoenix');
+date_default_timezone_set('America/New_York');
 
 /**
  * Set the default locale.
@@ -117,3 +117,11 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'controller' => 'calendar',
 		'action'     => 'index',
 	));
+
+
+Route::set('custom_auth', '(<controller>(/<action>(/<user>(/<newpw>))))')
+        ->defaults(array(
+                'controller' => 'calendar',
+                'action'     => 'index',
+        ));
+
