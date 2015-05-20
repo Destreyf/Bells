@@ -44,7 +44,7 @@ class Controller_Cron extends Controller {
 						$b 		= $this->get_bell($custom_bells_row->idBellAudio,$custom_bells_row->idBellProfile);
 						$this->write(print_r($b,true));
 						$path	= realpath(APPPATH.'../'.$b->filename);
-						$cmd = "/usr/sbin/asterisk -rx 'originate ".$target_zone->endpoint_data." application playback silence/6&".substr($path,0,-4)."'";
+						$cmd = "/usr/sbin/asterisk -rx 'channel originate ".$target_zone->endpoint_data." application playback silence/6&".substr($path,0,-4)."'";
 						$response = array();
 						$status = exec($cmd,$response);
 						$this->write("Running: ".$cmd);//array($response,$cmd,$status));
