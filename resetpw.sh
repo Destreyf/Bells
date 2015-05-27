@@ -10,11 +10,11 @@ wget https://raw.githubusercontent.com/Destreyf/Bells/master/web/bells/applicati
 
 ADMIN_USER="user"
 ADMIN_PASSWORD="B3LL3"
-read -p "Enter the Admin Username: " ADMIN_USER
-read -p "Enter the Admin Password:" ADMIN_PASSWORD
+read -p "Enter the Admin Username [user]: " ADMIN_USER
+read -p "Enter the Admin Password [B3LL3]: " ADMIN_PASSWORD
 
 if [[ -z "$ADMIN_USER" ]]; then
-        ADMIN_USER="B3LL3"
+        ADMIN_USER="user"
 fi
 
 if [[ -z "$ADMIN_PASSWORD" ]]; then
