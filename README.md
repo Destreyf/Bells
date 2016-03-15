@@ -24,14 +24,6 @@ mysql 5.5+
 ============
 Installation
 ============
-
-run the following commands:
-```bash
-user@server:~@ cd Bells/
-user@server:~@ chmod +x install.sh 
-user@server:~@ ./run.sh
-```
-
 Here's a 1 liner that will get you rolling (Remember to have GIT installed already
 
 ```bash
