@@ -155,7 +155,7 @@ body, table, input, textarea, select, li, button {
 }
 body {
 	font-size:12px;
-	background:#c4f0f1;
+	background:#FFFFFF;
 	text-align:center;
 }
 /* // base */
@@ -183,7 +183,7 @@ body {
 	color:#111;
 }
 #login h1 {
-	background:#0092c8;
+	background:#005984;
 	color:#fff;
 	text-shadow:#007dab 0 1px 0;
 	font-size:14px;
@@ -247,7 +247,7 @@ body {
 	font-size:12px;
 	color:#fff;
 	text-shadow:#007dab 0 1px 0;
-	background:#0092c8;
+	background:#005984;
 	-moz-border-radius:50px;
 	-webkit-border-radius:50px;
 	border-radius:50px;

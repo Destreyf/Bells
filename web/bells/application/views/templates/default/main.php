@@ -5,6 +5,8 @@
 <title>ClassroomSmart Bell Scheduler | <?=$title;?></title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<!-- include font awesome fonts so we have some icons -->
+<link href="<?=URL::site('resources/css/font-awesome.min.css');?>" rel="stylesheet" type="text/css" />
 <?php foreach($styles as $style){ ?>
 <link href="<?=URL::site('resources/css/'.$style);?>" rel="stylesheet" type="text/css" />
 <?php } ?>
@@ -24,10 +26,10 @@
 		<ul>
 			<li class="first" style="color:white;">Logged in as: <a href="#" accesskey="1" title=""><?php echo $user; ?></a></li>
 			<li><a href="<?=URL::site('audio');?>" accesskey="2" title="">Manage Audio Files</a></li>
-		
+
 			<li><a href="<?=URL::site('schedule/create');?>" accesskey="3" title="">Create New Schedule</a></li>
-			<!--<li><a href="#" accesskey="4" title="">Services</a></li>
-			<li><a href="#" accesskey="5" title="">Contact Us</a></li>-->
+
+			<li><a href="<?=URL::site('bulk');?>" accesskey="3" title="">Bulk Schedule</a></li>
 		</ul>
 	</div>
 	<div id="content">
@@ -45,7 +47,7 @@
 		<div class="clear"></div>
 	</div>
 	<div id="footer">
-		<p>Copyright &copy; 2006 Sitename.com. Designed by <a href="http://www.freecsstemplates.org">Free CSS Templates</a></p>
+		<p>Copyright &copy; ClassroomSmart.</p>
 	</div>
 </div>
 </body>

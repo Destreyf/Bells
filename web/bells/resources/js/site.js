@@ -9,8 +9,16 @@ function ajaxModal(url,object){
 		object.dialog('open');
 	},'json');
 }
-function update_cal(event){
-	var mypost = {dates:event.idBellDate,from: $.fullCalendar.formatDate(event.start, 'yyyy-MM-dd'), to: $.fullCalendar.formatDate(event.end, 'yyyy-MM-dd'),zone:$("#Zone").val(),idBellProfile:event.idBellProfile};
+function update_cal(event,bulk){
+	bulk = bulk || false;
+	var mypost = {
+		dates: event.idBellDate,
+		from: $.fullCalendar.formatDate(event.start, 'yyyy-MM-dd'),
+		to: $.fullCalendar.formatDate(event.end, 'yyyy-MM-dd'),
+		zone: $("#Zone").val(),
+		idBellProfile: event.idBellProfile,
+		force: event.force || false
+	};
 	$.post(baseurl+'calendar/add/'+event.idBellProfile,mypost,function(data){
 		if(typeof(data.logged_out) != 'undefined'){
 			alert('You are currently logged out, press ok to proceed to the login screen.');
@@ -20,23 +28,51 @@ function update_cal(event){
 				//We need to confirm this!
 				if(confirm("A custom bell schedule has already been setup for this date, press OK to continue, or press cancel to abort")){
 					mypost.force = true;
-					$.post(baseurl+'calendar/add/'+event.idBellProfile,mypost,function(){},'json');4
+					$.post(baseurl+'calendar/add/'+event.idBellProfile,mypost,function(){},'json');
 					if(!refresh_paused){
 						$("#calendar").fullCalendar( 'refetchEvents' );
 					}
+				}
+
+				if(bulk){
+					alert("An error occurred...");
 				}
 			} else{
 				if(!refresh_paused){
 					$("#calendar").fullCalendar( 'refetchEvents' );
 				}
+
+				if(bulk){
+					alert("Successfully updated");
+				}
 			}
 		}
 	},'json');	
 }
+
+function toggle_menu(item){
+	var open = !$(item).hasClass('fa-plus');
+	var ul = $(item).parent().parent().find('ul').first();
+
+	$(item).removeClass('fa-plus');
+	$(item).removeClass('fa-minus');
+
+	if(open){
+		$(item).addClass('fa-plus');
+		ul.hide();
+		console("Should Close");
+	} else {
+		$(item).addClass('fa-minus');
+		ul.show();
+		console.log("Should Open");
+	}
+}
+
 var lastZone;
 var refresh_paused = false;
 var error_occurred	= false;
 var players = [];
+
 $(function(){
 	var date = new Date();
 	var d = date.getDate();
@@ -120,14 +156,15 @@ $(function(){
 		eventDragStop: function(){ refresh_paused = false; },
 		eventResizeStart: function(){ refresh_paused = true; },
 		eventResizeStop: function(){ refresh_paused = false; },
-		eventClick: function( event, jsEvent, view ) { 
-			alert("You clicked on an event!");
+		eventClick: function( event, jsEvent, view ) {
+			// Do nothing.. SERIOUSLY DONT DO ANYTHING
 		}
 	}); 
 	$("#modal").dialog({ autoOpen: false,resizable:false,modal:true,draggable:false,width:800 });
 	$(".ui-widget-overlay").live('click',function(e){
 		$("#modal").dialog('close');
 	});
+
 	var myRefresh = function(){
 		if(!error_occurred){
 			if(!refresh_paused){
