@@ -299,7 +299,6 @@ body {
     <label for="login_password">Password</label>
     <input type="password" name="password" id="login_password" class="field required" title="Password is required" />
   </div>
-  <p class="forgot"><a href="#">Forgot your password?</a></p>
   <div class="submit">
     <button type="submit">Log in</button>
   </div>
