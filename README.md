@@ -37,8 +37,8 @@ Usage
 Open your Web Browser to http://[your-server-ip]/bells/
 Login with the following credentials
 
-Username: Admin
-Password: s07thv1ll3y
+Username: user
+Password: B3LL3
 
 This is the default password for this install
 
