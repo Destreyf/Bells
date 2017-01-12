@@ -104,7 +104,7 @@ fi
 rm existing.crontab
 
 echo "Creating Database"
-mysql -u $MYSQL_USER -p$MYSQL_PASSWORD < bells.sql
+mysql -u $MYSQL_USER < bells.sql
 
 #echo "Securing MySQL Password"
 #MYSQLSECURESED="sed -i 's/Yuh4D6E9G5wFxVUa/$BELLS_PASSWORD/g' $TARGET$TARGET_NAME/application/config/database.php"
@@ -119,8 +119,8 @@ echo "Verifying Apache ModRewrite is enabled"
 a2enmod rewrite
 
 echo "Setting up PHP Short Tag support"
-cp /etc/php5/apache2/php.ini /etc/php5/apache2/php.ini.bells_backup
-sed -i 's/short_open_tag = Off/short_open_tag = On/' /etc/php5/apace2/php.ini
+cp /etc/php.ini /etc/php.ini.bells_backup
+sed -i 's/short_open_tag = Off/short_open_tag = On/' /etc/php.ini
 
 if [ -f /etc/init.d/apache2 ]; then
         /etc/init.d/apache2 restart
@@ -158,7 +158,7 @@ echo ""
 echo "------------------------------------------"
 echo ""
 echo "http://$IP/$TARGET_NAME/"
-echo "The Username is Admin (Case sensitive)"
+echo "The Username is user (Case sensitive)"
 echo "The Password is $ADMIN_PASSWORD"
 
 echo ""
