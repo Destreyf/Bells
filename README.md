@@ -41,11 +41,3 @@ Username: user
 Password: B3LL3
 
 This is the default password for this install
-
-==========
-Disclaimer
-==========
-
-If you are seeing this message, and you dont know who i am (Chris)
-You probably SHOULD NOT BE HERE and if you are here still
-GET OUT OF MY PRIVATE REPOSITORY THIS IS PRIVATE INTELLECTUAL PROPERTY
